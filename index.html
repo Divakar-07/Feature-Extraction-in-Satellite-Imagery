@@ -14,7 +14,7 @@
       padding: 20px;
       text-align: center;
       padding-top: 58px;
-      background: url("/assets/media/2k_earth_nightmap.jpg") center/cover;
+      background: url("/assets/2k_earth_nightmap.jpg") center/cover;
     }
 
     header, nav, section, footer { padding: 20px; }
@@ -76,14 +76,14 @@
 <body>
 
   <nav>
-    <div class="logo"><img src="/assets/media/GeoVision.png" alt="LOGO" width="40"/><span>GeoVision</span></div>
+    <div class="logo"><img src="/assets/GeoVision.png" alt="LOGO" width="40"/><span>GeoVision</span></div>
     <div class="menu-toggle" onclick="toggleMenu()"><i class="bi bi-person-circle profile-icon"></i></div>
     <div class="nav-links" id="navLinks">
       <a href="/templates/DatasetGV2.html">Dataset</a>
       <a href="/templates/BlogGV4.html">Blog</a>
       <a href="/templates/GeoVision0.html" class="no-hover">
         <img
-          src="/assets/media/Signout.png"
+          src="/assets/Signout.png"
           alt="signin"
           title="SignOUT"
           width="18px"
@@ -106,11 +106,11 @@
   <div class="preview-container">
     <div class="preview-box">
       <h3>Real Image</h3>
-      <img id="realPreview" src="/assets/GV0/Upload.jpg" alt="Real Image Preview">
+      <img id="realPreview" src="/assets/Upload.jpg" alt="Real Image Preview">
     </div>
     <div class="preview-box">
       <h3>Masked Classes Image</h3>
-      <img id="maskPreview" src="/assets/GV0/Result.jpg" alt="Mask Image Preview">
+      <img id="maskPreview" src="/assets/Result.jpg" alt="Mask Image Preview">
     </div>
   </div>
 
@@ -142,7 +142,7 @@
 
         // --- MAPPING: Assuming mask is in /assets/masks/ and uses file name pattern
         const fileName = file.name.split('.').slice(0, -1).join('.');
-        const maskPath = `/assets/Semantic segmentation dataset/mask/${fileName}.png`;
+        const maskPath = `Semantic segmentation dataset/mask/${fileName}.png`;   //C:\Users\91807\OneDrive\Documents\GitHub\Feature-Extraction-in-Satellite-Imagery\Semantic segmentation dataset
 
         // Load corresponding mask
         const maskImg = new Image();
