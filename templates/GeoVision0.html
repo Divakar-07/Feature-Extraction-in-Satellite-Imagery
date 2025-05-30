@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoVision</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/assets/static/faq.css">
+  <style>
+    * { box-sizing: border-box;}
+    body { margin: 0; font-family: Arial, sans-serif; padding-top: 58px;}
+    header, nav, section, footer { padding: 20px; }
+    nav { display: flex; justify-content: space-between; align-items: center; background: #fbfcfc; color: black; padding: 10px 40px; flex-wrap: wrap; position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; }
+    .logo { font-size: 1.5em; font-weight: bold; display: flex; align-items: center; gap: 5px;}
+    .nav-links { display: flex; flex-wrap: wrap; gap: 15px; }
+    .nav-links a { color: black; text-decoration: none; }
+    .nav-links a:hover:not(.no-hover) { background: rgb(198, 193, 193); border-radius: 4px; }
+    .menu-toggle { display: none; cursor: pointer; font-size: 24px; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; width: 100%; margin-top: 10px; }
+      .nav-links.active { display: flex; }
+      .menu-toggle { display: block; color: black; }
+      .feature-row{ flex-direction: column; text-align: center;}
+      .feature-image img{max-height: 300px;}
+    }
+
+    .hero { display: flex; align-items: center; justify-content: space-between; color: white; height: 100vh; position: relative; overflow: hidden; }
+    .hero video { position: absolute; top: 0; left: 0; object-fit: cover; width: 100%; height: 100%; opacity: 0.8; z-index: -1; }
+    .hero-text { max-width: 600px; padding: 40px; }
+    .stats { display: flex; gap: 40px; font-size: 24px; font-weight: bold; margin-top: 20px; }
+    .stats span { display: inline-block; min-width: 60px; }
+    section h2 { color: #003366; }
+    .info-section { display: flex; justify-content: space-around; background: #f2f2f2; padding: 40px; flex-wrap: wrap; }
+    .info-box { width: 30%; min-width: 250px; margin-bottom: 20px; }
+    .info-box h3 { color: #003366; }
+    .features-section { padding: 40px; display: flex; flex-direction: column; gap: 40px; }
+    .feature-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+    .feature-row:nth-child(even) { flex-direction: row-reverse; }
+    .feature-image { flex: 1; min-width: 280px; height: auto; overflow: hidden; border-radius: 8px; transition: transform 0.3s ease; }
+    .feature-image img {width: 100%; height: 100%; max-height: 200px; object-fit: cover; border-radius: 8px; transition: transform 0.3s ease;}
+    .feature-image:hover img {transform: scale(1.05); filter: brightness(1.1);}
+    .feature-text { flex: 1; min-width: 280px; }
+    .get-started { height: 230.23px; display: flex; justify-content: center; align-items: center; background: #1b1b1be5; }
+    .get-started h1 { font-size: 6vw; font-weight: bold; background: url('/assets/GV0/Getstart3.jpg') center/cover; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; text-align: center; margin: 0; line-height: 1; }
+    .base-footer { background: black; color: white; text-align: center; padding: 10px; }
+    .site-footer { background: #444647; color: white; padding: 40px 60px; font-size: 15px; }
+    .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+    .footer-left { max-width: 400px; }
+    .footer-tagline { margin: 15px 0; line-height: 1.5; color: #cfd8dc; }
+    .social-icons a { margin-right: 10px; display: inline-block; color: white; }
+    .social-icons a:hover {color: #558de7;}
+    .footer-links { display: flex; gap: 60px; flex-wrap: wrap; }
+    .footer-links h4 { margin-bottom: 10px; font-size: 16px; color: #cfd8dc; }
+    .footer-links ul { list-style: none; padding: 0; margin: 0; }
+    .footer-links ul li { margin-bottom: 8px; }
+    .footer-links ul li a, .footer-links p a { color: #ffffff; text-decoration: none; transition: color 0.3s; }
+    .footer-links ul li a:hover, .footer-links p a:hover { color: #558de7; }
+    .login-swap { position: relative; display: flex; align-items: center; justify-content: center; }
+    .login-swap i { font-size: 18px; transition: opacity 0.1s; }
+    .login-swap img { position: absolute; width: 18px; height: 18px; opacity: 0; transition: opacity 0.1s; }
+    .login-swap:hover i { opacity: 0; }
+    .login-swap:hover img { opacity: 1; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo"><img src="/assets/media/GeoVision.png" alt="LOGO" width="40"/><span>GeoVision</span></div>
+    <div class="menu-toggle" onclick="toggleMenu()">M☰NU</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#">Home</a>
+      <a href="#feature">About</a>
+      <a href="/templates/MethodologyGV1.html">Methodology</a>
+      <a href="/templates/DatasetGV2.html">Dataset</a>
+      <a href="/templates/PublicationGV3.html">Publications</a>
+      <a href="/templates/BlogGV4.html">Blog</a>
+      <a href="/templates/ContactGV5.html">Contact</a>
+      <a href="/templates/LoginGV6.html" class="login-swap no-hover">
+        <i class="fa-solid fa-right-to-bracket" title="SignIN"></i>
+        <img src="/assets/media/sign.png" alt="signin" title="SignIN" width="18px" height="18px" />
+      </a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <video autoplay loop muted playsinline>
+      <source src="/assets/media/1992-153555258_large.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-text">
+      <h1 style="font-size: 30px;">Transforming Satellite Imagery into Actionable Insights</h1>
+      <p style="font-size: 20px;">Empowering urban planning and disaster management through advanced feature extraction.</p>
+      <div class="stats">
+        <div><i class="fa-solid fa-users"></i><br><span id="userCount">0</span><br>Users</div>
+        <div><i class="fa-solid fa-database"></i><br><span id="dataCount">0</span><br>Data Vol.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <div class="info-box">
+      <h3><i class="fa-solid fa-cubes"></i> Key Features</h3>
+      <ul>
+        <li>Automated Feature Detection</li>
+        <li>Change Analysis Over Time</li>
+        <li>Interactive Visualization Tools</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <h3><i class="fa-solid fa-pen-to-square"></i> Use Cases</h3>
+      <ul>
+        <li>Urban Planning and Zoning</li>
+        <li>Disaster Response Mapping</li>
+        <li>Environmental Monitoring</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <h3><i class="fa-solid fa-laptop-code"></i> Technology Stack</h3>
+      <ul>
+        <li>Deep Learning (U-Net, GANs)</li>
+        <li>GIS & Remote Sensing Tools</li>
+        <li>Cloud-Based Scalable Platform</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="features-section" id="feature">
+    <div class="feature-row">
+      <div class="feature-image"><img src="/assets/GV0/Water.jpg" alt="Water Class Image" style="width:100%; height: 200px; object-fit: cover;"></div>
+      <div class="feature-text">
+        <h3>Water Body Detection</h3>
+        <p>Identify and segment water bodies like rivers, lakes, and reservoirs for resource management and flood analysis.</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-image"><img src="/assets/GV0/Unpaved.jpg" alt="Land Unpaved Class Image" style="width:100%; height: 200px; object-fit: cover;"></div>
+      <div class="feature-text">
+        <h3>Unpaved Land Detection</h3>
+        <p>Map regions of bare soil and open terrain for agricultural planning and land-use monitoring.</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-image"><img src="/assets/GV0/Road.jpg" alt="Land Unpaved Class Image" style="width:100%; height: 200px; object-fit: cover;"></div>
+      <div class="feature-text">
+        <h3>Road Network Extraction</h3>
+        <p>Extract high-resolution road layouts using deep learning models to support navigation and transport planning.</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-image"><img src="/assets/GV0/Building.jpg" alt="Land Unpaved Class Image" style="width:100%; height: 200px; object-fit: cover;"></div>
+      <div class="feature-text">
+        <h3>Building Footprint Mapping</h3>
+        <p>Accurately detect and map building structures to support urban development, post-disaster assessments, and 3D modeling.</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-image"><img src="/assets/GV0/Vegitation.jpg" alt="Land Unpaved Class Image" style="width:100%; height: 200px; object-fit: cover;"></div>
+      <div class="feature-text">
+        <h3>Vegetation Classification</h3>
+        <p>Monitor vegetation health, deforestation, and green cover using multispectral satellite data analysis.</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-image"><img src="/assets/GV0/Unlabeled.jpg" alt="Land Unpaved Class Image" style="width:100%; height: 200px; object-fit: cover;"></div>
+      <div class="feature-text">
+        <h3>Miscellaneous Region Tagging</h3>
+        <p>Capture and classify uncategorized areas to refine datasets and improve model adaptability to diverse terrains.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="get-started">
+    <h1>« Get Started »</h1>
+  </section> 
+  
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <img src="/assets/media/GeoVision.png" alt="GeoVision Logo" width="50" style="background-color: #ffffff; border-radius: 4px;"/>
+        <p class="footer-tagline">
+          Empowering decisions from space.<br />
+          Feature extraction for urban planning and disaster resilience.
+        </p>
+        <div class="social-icons">
+          <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://github.com/Divakar-07" target="_blank"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+  
+      <div class="footer-links">
+        <div>
+          <h4>GeoVision</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#usecases">Use Cases</a></li>
+            <li><a href="#tech">Technology</a></li>
+            <li><a href="#team">Team</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/templates/PublicationGV3.html">Publications</a></li>
+            <li><a href="/templates/DatasetGV2.html">Dataset</a></li>
+            <li><a href="/templates/BlogGV4.html">Blog</a></li>
+            <li><a href="/templates/ContactGV5.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p><a href="mailto:info@geovision.com">info@geovision.com</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>  
+
+  <section class="base-footer">
+    &copy; 2025 GeoVision | All rights reserved
+  </section>
+
+  <!-- FAQ section bot DIV -->
+  <div class="faq-icon" id="faqIcon" title="Click to chat 🤖"><img src="/assets/media/GeoVision.png" alt="LOGO" width="40px"/></div>
+
+  <!-- FAQ chat window -->
+  <div class="faq-chat" id="faqChat">
+      <div class="faq-header">
+          Hi,👋🏼 I am DIV what's your question? 
+          <span onclick="closeFAQ()"><i class="bi bi-x-circle"></i></span>
+      </div>
+      <div class="faq-body">
+          <div id="responseArea"></div>
+      </div>
+      <div class="faq-input">
+          <input type="text" id="questionInput" placeholder="Write your question...">
+          <button onclick="submitQuestion()">Send</button>
+      </div>
+  </div>
+
+
+  <script>
+    function animateValue(id, start, end, duration) {
+      const obj = document.getElementById(id);
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.textContent = Math.floor(progress * (end - start) + start) + "+";
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    function toggleMenu() {
+      const nav = document.getElementById("navLinks");
+      nav.classList.toggle("active");
+    }
+
+    window.addEventListener("load", () => {
+      animateValue("userCount", 0, 101, 3500);
+      animateValue("dataCount", 0, 1098, 4500);
+    });
+
+    //chatbot
+    let icon = document.getElementById("faqIcon");
+        let chat = document.getElementById("faqChat");
+        let offsetX = 0, offsetY = 0, isDragging = false;
+    
+        // Start dragging
+        icon.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        offsetX = e.clientX - icon.offsetLeft;
+        offsetY = e.clientY - icon.offsetTop;
+        icon.style.cursor = "grabbing";
+        });
+    
+        // Dragging in motion
+        document.addEventListener("mousemove", (e) => {
+          if (isDragging) {
+            let x = e.clientX - offsetX;
+            let y = e.clientY - offsetY;
+            icon.style.left = x + "px";
+            icon.style.top = y + "px";
+            icon.style.bottom = "auto"; // cancel default bottom-right
+            icon.style.right = "auto";
+          }
+        });
+    
+        // Stop dragging
+        document.addEventListener("mouseup", () => {
+          isDragging = false;
+          icon.style.cursor = "grab";
+        });
+    
+        // Open FAQ near the icon
+        icon.addEventListener("click", () => {
+          chat.style.display = "block";
+          // Position chat relative to icon
+          const iconRect = icon.getBoundingClientRect();
+          chat.style.left = iconRect.left + "px";
+          chat.style.top = (iconRect.top + 60) + "px"; // place just below icon
+        });
+    
+        function closeFAQ() {
+          chat.style.display = "none";
+          document.getElementById("questionInput").value = '';
+          document.getElementById("responseArea").innerText = '';
+        }
+    
+            // Function to submit the question to the backend
+            async function submitQuestion() {
+                const question = document.getElementById('questionInput').value.trim();
+                if (!question) {
+                    alert('Please enter a question.');
+                    return;
+                }
+    
+                try {
+                    const response = await fetch('http://localhost:7213/faq', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ question: question })
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error("Failed to get response");
+                    }
+    
+                    const answer = await response.text();
+                    document.getElementById('responseArea').innerText = answer;
+                    document.getElementById('questionInput').value = ''; // Clear input after submission
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('responseArea').innerText = 'Error: Could not fetch response. Please try again.';
+                }
+            }
+    
+            // Allow pressing Enter to submit the question
+            document.getElementById('questionInput').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    submitQuestion();
+                }
+            });
+  </script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <title>Dataset | GeoVision</title>
+  <style>
+    * { box-sizing: border-box;}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f8fb;
+      color: #333;
+      padding-top: 58px;
+    }
+
+    header, nav, section, footer { padding: 20px; }
+    nav { display: flex; justify-content: space-between; align-items: center; background: #fbfcfc; color: black; padding: 10px 40px; flex-wrap: wrap; position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; }
+    .logo { font-size: 1.5em; font-weight: bold; display: flex; align-items: center; gap: 5px;}
+    .nav-links { display: flex; flex-wrap: wrap; gap: 15px; }
+    .nav-links a { color: black; text-decoration: none; }
+    .nav-links a:hover { background: rgb(198, 193, 193); border-radius: 4px; }
+    .menu-toggle { display: none; cursor: pointer; font-size: 24px; }
+    .base-footer { background: black; color: white; text-align: center; padding: 10px; }
+
+.dataset-grid {
+  padding: 40px 20px;
+  background: #f5f7fa;
+  text-align: center;
+}
+
+.dataset-grid h2 {
+  font-size: 30px;
+  color: #003366;
+  margin-bottom: 30px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.image-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.image-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.caption {
+  background: #003366;
+  color: white;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.dataset-download {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.download-btn {
+  display: inline-block;
+  background: #003366;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background 0.3s;
+  margin-bottom: 10px;
+}
+
+.download-btn:hover {
+  background: #005799;
+}
+
+.dataset-info {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.dataset-info h2 {
+  color: #003366;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.dataset-info p {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 30px;
+}
+
+.class-container {
+  max-width: 100%;
+  margin: 30px auto;
+  padding: 10px;
+}
+
+.dataset-label {
+  font-weight: bold;
+  margin: 10px 0 6px;
+  font-size: 18px;
+  color: #003366;
+}
+
+.class-row-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.class-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: inline-block;
+  border: 1px solid #ccc;
+}
+
+.class-name {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; flex-direction: column; width: 100%; margin-top: 10px; }
+  .nav-links.active { display: flex; }
+  .menu-toggle { display: block; color: black; }
+  }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo"><img src="/assets/media/GeoVision.png" alt="LOGO" width="40"/><span>GeoVision</span></div>
+    <div class="menu-toggle" onclick="toggleMenu()">M☰NU</div>
+    <div class="nav-links" id="navLinks">
+      <a href="/templates/GeoVision0.html">Home</a>
+      <a href="#feature">About</a>
+      <a href="/templates/MethodologyGV1.html">Methodology</a>
+      <a href="/templates/DatasetGV2.html">Dataset</a>
+      <a href="/templates/PublicationGV3.html">Publications</a>
+      <a href="/templates/BlogGV4.html">Blog</a>
+      <a href="/templates/ContactGV5.html">Contact</a>
+    </div>
+  </nav>
+
+  <section class="dataset-info">
+    <h2>Dataset Overview</h2>
+    <p>
+      The GeoVision dataset is based on high-resolution satellite imagery of Dubai, annotated with six semantic land cover classes. Each class is represented using a unique color and polygon mask to aid in training segmentation models.
+    </p>
+  
+    <div class="class-container">
+      <div class="dataset-label">Dubai Data Set:</div>
+      <div class="class-row-horizontal">
+        <span class="class-color" style="background-color: #e2a929;" title="GoldenYellow"></span><span class="class-name">Water</span>
+        <span class="class-color" style="background-color: #8429f6;" title="BlueViolet"></span><span class="class-name">Land</span>
+        <span class="class-color" style="background-color: #6ec1e4;" title="SkyBlue"></span><span class="class-name">Road</span>
+        <span class="class-color" style="background-color: #390799;" title="Indigo"></span><span class="class-name">Building</span>
+        <span class="class-color" style="background-color: #fedd3a;" title="Gold"></span><span class="class-name">Vegetation</span>
+        <span class="class-color" style="background-color: #9B9B9B;" title="DarkGray"></span><span class="class-name">Unlabeled</span>
+      </div>
+    
+      <div class="dataset-label">Test Data Set:</div>
+      <div class="class-row-horizontal">
+        <span class="class-color" style="background-color: #00008b;" title="DarkBlue"></span><span class="class-name">Water</span>
+        <span class="class-color" style="background-color: black;" title="black"></span><span class="class-name">Land</span>
+        <span class="class-color" style="background-color: #00ffff;" title="Cyan"></span><span class="class-name">Road</span>
+        <span class="class-color" style="background-color: #f3d43c;" title="SandyBrown"></span><span class="class-name">Building</span>
+        <span class="class-color" style="background-color: #00ff00;" title="Lime"></span><span class="class-name">Vegetation</span>
+        <span class="class-color" style="background-color: #9B9B9B;" title="DarkGray"></span><span class="class-name">Unlabeled</span>
+      </div>
+    </div>    
+  </section>  
+
+  <section class="dataset-grid">
+    <h2>Sample Dataset Visualization</h2>
+    <div class="grid-container">
+  
+      <!-- Card 1 -->
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/image/image_jewar_003.jpg" alt="Original Image 1">
+        <div class="caption">Original Image 1</div>
+      </div>
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/mask/image_jewar_003.png" alt="Mask Image 1">
+        <div class="caption">Mask Image 1</div>
+      </div>
+  
+      <!-- Card 2 -->
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/image/image_part_009t1.jpg" alt="Original Image 2">
+        <div class="caption">Original Image 2</div>
+      </div>
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/mask/image_part_009t1.png" alt="Mask Image 2">
+        <div class="caption">Mask Image 2</div>
+      </div>
+  
+      <!-- Card 3 -->
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/image/image_part_005t1.jpg" alt="Original Image 3">
+        <div class="caption">Original Image 3</div>
+      </div>
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/mask/image_part_005t1.png" alt="Mask Image 3">
+        <div class="caption">Mask Image 3</div>
+      </div>
+  
+      <!-- Card 4 -->
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/image/image_part_005t2.jpg" alt="Original Image 4">
+        <div class="caption">Original Image 4</div>
+      </div>
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/mask/image_part_005t2.png" alt="Mask Image 4">
+        <div class="caption">Mask Image 4</div>
+      </div>
+  
+      <!-- Card 5 -->
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/image/image_part_003t4.jpg" alt="Original Image 5">
+        <div class="caption">Original Image 5</div>
+      </div>
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/mask/image_part_003t4.png" alt="Mask Image 5">
+        <div class="caption">Mask Image 5</div>
+      </div>
+  
+      <!-- Card 6 -->
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/image/image_part_004t6.jpg" alt="Original Image 6">
+        <div class="caption">Original Image 6</div>
+      </div>
+      <div class="image-card" data-aos="fade-up">
+        <img src="/archive/Semantic segmentation dataset/mask/image_part_004t6.png" alt="Mask Image 6">
+        <div class="caption">Mask Image 6</div>
+      </div>
+  
+    </div>
+  </section>
+
+  <div class="dataset-download">
+    <h3>Download the Full Dataset</h3>
+    <a href="/archive.zip" download class="download-btn">
+      ⬇️ Download ZIP
+    </a>
+  </div>
+  
+
+  <section class="base-footer">
+    &copy; 2025 GeoVision | All rights reserved
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("navLinks");
+      nav.classList.toggle("active");
+    }
+
+    AOS.init();
+  </script>
+
+</body>
+</html>

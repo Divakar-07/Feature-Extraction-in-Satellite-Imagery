@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <title>Methodology | GeoVision</title>
+  <style>
+    * { box-sizing: border-box;}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f8fb;
+      color: #333;
+      padding-top: 58px;
+    }
+
+    header, nav, section, footer { padding: 20px; }
+    nav { display: flex; justify-content: space-between; align-items: center; background: #fbfcfc; color: black; padding: 10px 40px; flex-wrap: wrap; position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; }
+    .logo { font-size: 1.5em; font-weight: bold; display: flex; align-items: center; gap: 5px;}
+    .nav-links { display: flex; flex-wrap: wrap; gap: 15px; }
+    .nav-links a { color: black; text-decoration: none; }
+    .nav-links a:hover { background: rgb(198, 193, 193); border-radius: 4px; }
+    .menu-toggle { display: none; cursor: pointer; font-size: 24px; }
+    .base-footer { background: black; color: white; text-align: center; padding: 10px; }
+
+    .methodology {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .methodology h2 {
+      text-align: center;
+      color: #003366;
+      font-size: 32px;
+      margin-bottom: 40px;
+    }
+
+    .step {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 50px;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      align-items: center;
+    }
+
+    .step:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .step img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-content h3 {
+      color: #003366;
+      margin-top: 0;
+    }
+
+    .step-content p {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; width: 100%; margin-top: 10px; }
+      .nav-links.active { display: flex; }
+      .menu-toggle { display: block; color: black; }
+    }
+
+    @media screen and (max-width: 768px) {
+      .step {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .step:nth-child(even) {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo"><img src="/assets/media/GeoVision.png" alt="LOGO" width="40"/><span>GeoVision</span></div>
+    <div class="menu-toggle" onclick="toggleMenu()">M☰NU</div>
+    <div class="nav-links" id="navLinks">
+      <a href="/templates/GeoVision0.html">Home</a>
+      <a href="#feature">About</a>
+      <a href="/templates/MethodologyGV1.html">Methodology</a>
+      <a href="/templates/DatasetGV2.html">Dataset</a>
+      <a href="/templates/PublicationGV3.html">Publications</a>
+      <a href="/templates/BlogGV4.html">Blog</a>
+      <a href="/templates/ContactGV5.html">Contact</a>
+    </div>
+  </nav>
+
+  <section class="methodology">
+    <h2>Our Methodology</h2>
+
+    <!-- Step 1 -->
+    <div class="step" data-aos="fade-right">
+      <img src="/assets/GV0/Satellite Image Acquisition.jpg" alt="Data Collection">
+      <div class="step-content">
+        <h3>1. Satellite Image Acquisition</h3>
+        <p>We collect high-resolution satellite imagery from public and commercial sources such as Sentinel-2, Landsat, and SpaceNet datasets. Multispectral images are prioritized to allow for accurate classification of land cover features.</p>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step" data-aos="fade-left">
+      <img src="/assets/GV0/Preprocessing.jpg" alt="Preprocessing">
+      <div class="step-content">
+        <h3>2. Preprocessing</h3>
+        <p>The raw satellite data undergoes preprocessing which includes radiometric correction, cloud masking, geometric alignment, and resizing. This ensures consistency across temporal data for accurate model training.</p>
+        <p>We also enhance contrast and normalize bands to prepare for deep learning segmentation.</p>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step" data-aos="fade-right">
+      <img src="/assets/GV0/Data Augmentation.jpg" alt="Augmentation">
+      <div class="step-content">
+        <h3>3. Data Augmentation</h3>
+        <p>To address class imbalance and enrich the dataset, we apply augmentation techniques like rotation, flipping, brightness changes, and simulated terrain noise. This step significantly boosts model generalization.</p>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step" data-aos="fade-left">
+      <img src="/assets/GV0/U-Net-model.jpg" alt="Model Training">
+      <div class="step-content">
+        <h3>4. Deep Learning-Based Feature Extraction</h3>
+        <p>We use U-Net as the base architecture for semantic segmentation. To enhance performance on limited or domain-shifted data, we use CycleGANs for synthetic image generation that better represent real-world variability.</p>
+        <p>Classes include water, roads, vegetation, buildings, unpaved land, and miscellaneous.</p>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step" data-aos="fade-right">
+      <img src="/assets/GV0/Evaluation and Post-Processing.jpg" alt="Evaluation">
+      <div class="step-content">
+        <h3>5. Evaluation and Post-Processing</h3>
+        <p>Model outputs are evaluated using metrics like Mean Intersection over Union (mIoU), precision, and recall. Post-processing includes morphological operations to reduce noise and improve region consistency.</p>
+        <p>In our test, U-Net+CycleGAN achieved a mIoU improvement of 5% over baseline U-Net.</p>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="step" data-aos="fade-left">
+      <img src="/assets/GV0/Visualization & Export.jpg" alt="Visualization">
+      <div class="step-content">
+        <h3>6. Visualization & Export</h3>
+        <p>The extracted features are visualized over satellite imagery using transparent overlays. Final outputs are exported in formats compatible with GIS tools (GeoTIFF, SHP), and also rendered in interactive web dashboards for stakeholder access.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="base-footer">
+    &copy; 2025 GeoVision | All rights reserved
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("navLinks");
+      nav.classList.toggle("active");
+    }
+
+    AOS.init();
+  </script>
+
+</body>
+</html>

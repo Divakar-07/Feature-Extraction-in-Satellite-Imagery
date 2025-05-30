@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | GeoVision</title>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      scroll-padding-top: 100px;
+    }
+
+    header, nav, section, footer { padding: 20px; }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fbfcfc;
+      color: black;
+      padding: 10px 40px;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+    }
+
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .nav-links a {
+      color: black;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      background: rgb(198, 193, 193);
+      border-radius: 4px;
+    }
+
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+
+    .search-bar input {
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      border-color: #003366;
+      box-shadow: 0 0 4px rgba(0, 51, 102, 0.3);
+    }
+
+    .search-btn {
+      background: #003366;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .search-btn:hover {
+      background: #005799;
+    }
+
+    .blog-section {
+      max-width: 1200px;
+      margin: 120px auto 40px auto;
+      padding: 20px;
+    }
+
+    .blog-section h2 {
+      color: #003366;
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 40px;
+    }
+
+    /* Default Blog Grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 100px;
+    }
+
+    /* Blog Card */
+    .blog-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      opacity: 1;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .blog-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .blog-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .blog-content {
+      padding: 20px;
+    }
+
+    .blog-content h3 {
+      margin: 0 0 10px 0;
+      color: #003366;
+      font-size: 20px;
+    }
+
+    .blog-content p {
+      font-size: 14px;
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    .blog-date {
+      font-size: 12px;
+      color: #888;
+    }
+
+    /* --- When Search is Active --- */
+    .blog-grid.search-active {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .blog-card.search-mode {
+      flex-direction: row;
+      height: 180px;
+      opacity: 1 !important;
+    }
+
+    .blog-card.search-mode img {
+      width: 200px;
+      height: 100%;
+      object-fit: cover;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .blog-content.search-mode {
+      flex: 1;
+      padding: 20px;
+      position: relative;
+    }
+
+    .blog-date.search-mode {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 12px;
+      color: #777;
+    }
+
+    .base-footer {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .blog-card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; width: 100%; margin-top: 10px; }
+      .nav-links.active { display: flex; }
+      .menu-toggle { display: block; color: black; }
+      .search-bar { justify-content: center; width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">
+    <img src="/assets/media/GeoVision.png" alt="LOGO" width="40" />
+    <span>GeoVision</span>
+  </div>
+
+  <div class="menu-toggle" onclick="toggleMenu()">M☰NU</div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="/templates/GeoVision0.html">Home</a>
+    <a href="#feature">About</a>
+    <a href="/templates/MethodologyGV1.html">Methodology</a>
+    <a href="/templates/DatasetGV2.html">Dataset</a>
+    <a href="/templates/PublicationGV3.html">Publications</a>
+    <a href="/templates/BlogGV4.html">Blog</a>
+    <a href="/templates/ContactGV5.html">Contact</a>
+  </div>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search blog...">
+    <button onclick="searchBlogs()" class="search-btn">🔍</button>
+  </div>
+</nav>
+
+<!-- BLOG SECTION -->
+<section class="blog-section">
+  <h2>Our Blog Page</h2>
+
+  <div class="blog-grid">
+
+    <!-- Card 1 -->
+    <div class="blog-card" data-aos="fade-up">
+      <img src="/assets/GV0/How AI is Transforming Satellite Imagery.webp" alt="AI & Satellite" />
+      <div class="blog-content">
+        <h3>How AI is Transforming Satellite Imagery</h3>
+        <p>Deep learning models like U-Net and GANs are changing the way we see the Earth from above.</p>
+        <div class="blog-date">Apr 20, 2025</div>
+      </div>
+    </div>
+  
+    <!-- Card 2 -->
+    <a href="/templates/blog/labeling-challenges.html" class="blog-card-link">   
+      <div class="blog-card" data-aos="fade-up">
+        <img src="/assets/GV0/Challenges of Labeling Satellite Data.jpg" alt="Labeling Challenges" />
+        <div class="blog-content">
+          <h3>Challenges of Labeling Satellite Data</h3>
+          <p>Mask annotation for training deep networks is more complex than it seems—here’s why.</p>
+          <div class="blog-date">Mar 12, 2025</div>
+        </div>
+      </div>
+    </a>
+  
+    <!-- Card 3 -->
+    <div class="blog-card" data-aos="fade-up">
+      <img src="/assets/GV0/Urban Planning from Above barcelona.webp" alt="City Planning" />
+      <div class="blog-content">
+        <h3>Urban Planning from Above</h3>
+        <p>See how satellite-derived data supports zoning, infrastructure, and smart city planning.</p>
+        <div class="blog-date">Feb 28, 2025</div>
+      </div>
+    </div>
+  
+    <!-- Card 4 -->
+    <div class="blog-card" data-aos="fade-up">
+      <img src="/assets/GV0/Building a Data Pipeline for Imagery.jpg" alt="Data Pipeline" />
+      <div class="blog-content">
+        <h3>Building a Data Pipeline for Imagery</h3>
+        <p>From raw data to inference-ready input, learn about processing pipelines.</p>
+        <div class="blog-date">Feb 20, 2025</div>
+      </div>
+    </div>
+  
+    <!-- Card 5 -->
+    <div class="blog-card" data-aos="fade-up">
+      <img src="/assets/GV0/Understanding NDVI & Vegetation Mapping.jpg" alt="NDVI & Vegetation" />
+      <div class="blog-content">
+        <h3>Understanding NDVI & Vegetation Mapping</h3>
+        <p>Using satellite bands to measure vegetation health, cover, and growth.</p>
+        <div class="blog-date">Jan 18, 2025</div>
+      </div>
+    </div>
+  
+    <!-- Card 6 -->
+    <div class="blog-card" data-aos="fade-up">
+      <img src="/assets/GV0/Best GIS Tools for Satellite Analysts.png" alt="GIS Tools" />
+      <div class="blog-content">
+        <h3>Best GIS Tools for Satellite Analysts</h3>
+        <p>Explore the best open-source and pro tools to visualize and process GeoTIFFs.</p>
+        <div class="blog-date">Jan 5, 2025</div>
+      </div>
+    </div>
+  
+    <!-- Card 7 -->
+    <div class="blog-card" data-aos="fade-up">
+      <img src="/assets/GV0/U-Net-model.jpg" alt="U-Net vs GAN" />
+      <div class="blog-content">
+        <h3>U-Net vs GAN: Which Segments Better?</h3>
+        <p>A technical comparison of traditional and generative segmentation models.</p>
+        <div class="blog-date">Dec 22, 2024</div>
+      </div>
+    </div>
+  
+    <!-- Card 8 -->
+    <div class="blog-card" data-aos="fade-up">
+      <img src="/assets/GV0/Role of Edge Detection in Satellite Imagery.jpeg" alt="Edge Detection" />
+      <div class="blog-content">
+        <h3>Role of Edge Detection in Satellite Imagery</h3>
+        <p>Classic filters still play a vital role in preprocessing pipelines—here’s how.</p>
+        <div class="blog-date">Dec 10, 2024</div>
+      </div>
+    </div>
+  
+    <!-- Card 9 -->
+    <div class="blog-card" data-aos="fade-up">
+      <img src="/assets/GV0/Evaluating Segmentation Models with mIoU.jpeg" alt="Model Evaluation" />
+      <div class="blog-content">
+        <h3>Evaluating Segmentation Models with mIoU</h3>
+        <p>Learn how metrics like mIoU and pixel accuracy are used to validate models.</p>
+        <div class="blog-date">Nov 30, 2024</div>
+      </div>
+    </div>
+  
+    <!-- Card 10 -->
+    <div class="blog-card" data-aos="fade-up">
+      <img src="/assets/GV0/Why Augmentation Matters in Earth Observation.jpg" alt="Data Augmentation" />
+      <div class="blog-content">
+        <h3>Why Augmentation Matters in Earth Observation</h3>
+        <p>Rotation, brightness, and zoom help you build smarter satellite segmentation models.</p>
+        <div class="blog-date">Nov 14, 2024</div>
+      </div>
+    </div>
+  
+    <!-- Card 11 -->
+    <div class="blog-card" data-aos="fade-up">
+      <img src="/assets/GV0/Loss Functions for Semantic Segmentation.jpg" alt="Loss Functions" />
+      <div class="blog-content">
+        <h3>Loss Functions for Semantic Segmentation</h3>
+        <p>Which loss works best for imbalanced data in satellite classification?</p>
+        <div class="blog-date">Oct 30, 2024</div>
+      </div>
+    </div>
+  
+    <!-- Card 12 -->
+    <div class="blog-card" data-aos="fade-up">
+      <img src="/assets/GV0/Generating Synthetic Satellite Images with GANs.png" alt="Synthetic Data" />
+      <div class="blog-content">
+        <h3>Generating Synthetic Satellite Images with GANs</h3>
+        <p>Using CycleGAN to overcome domain shifts and boost segmentation performance.</p>
+        <div class="blog-date">Oct 10, 2024</div>
+      </div>
+    </div>
+  
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section class="base-footer">
+  &copy; 2025 GeoVision | All rights reserved
+</section>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  function toggleMenu() {
+    const nav = document.getElementById("navLinks");
+    nav.classList.toggle("active");
+  }
+
+  AOS.init();
+
+  function searchBlogs() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const cards = Array.from(document.querySelectorAll(".blog-card"));
+  const blogGrid = document.querySelector(".blog-grid");
+
+  // Separate matching and non-matching cards
+  const matchingCards = [];
+  const nonMatchingCards = [];
+
+  cards.forEach(card => {
+    const title = card.querySelector("h3").innerText.toLowerCase();
+    const content = card.querySelector("p").innerText.toLowerCase();
+
+    if (title.includes(input) || content.includes(input)) {
+      matchingCards.push(card);
+    } else {
+      nonMatchingCards.push(card);
+    }
+  });
+
+  // Clear the grid and append the matching cards first, followed by non-matching ones
+  blogGrid.innerHTML = '';
+  matchingCards.forEach(card => blogGrid.appendChild(card));
+  nonMatchingCards.forEach(card => blogGrid.appendChild(card));
+
+  // Optionally, you can add a class to indicate the search state
+  if (input.length > 0) {
+    blogGrid.classList.add("search-active");
+  } else {
+    blogGrid.classList.remove("search-active");
+    // If input is cleared, restore original order (if necessary)
+    restoreOriginalOrder(cards, blogGrid);
+  }
+}
+
+// To restore original order when the input is cleared
+function restoreOriginalOrder(cards, blogGrid) {
+  cards.forEach(card => blogGrid.appendChild(card)); // Re-appends the cards in original order
+}
+
+
+</script>
+
+</body>
+</html>
