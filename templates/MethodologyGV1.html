@@ -94,16 +94,16 @@
 <body>
 
   <nav>
-    <div class="logo"><img src="/assets/media/GeoVision.png" alt="LOGO" width="40"/><span>GeoVision</span></div>
+    <div class="logo"><img src="assets/media/GeoVision.png" alt="LOGO" width="40"/><span>GeoVision</span></div>
     <div class="menu-toggle" onclick="toggleMenu()">M☰NU</div>
     <div class="nav-links" id="navLinks">
-      <a href="/templates/GeoVision0.html">Home</a>
+      <a href="templates/GeoVision0.html">Home</a>
       <a href="#feature">About</a>
-      <a href="/templates/MethodologyGV1.html">Methodology</a>
-      <a href="/templates/DatasetGV2.html">Dataset</a>
-      <a href="/templates/PublicationGV3.html">Publications</a>
-      <a href="/templates/BlogGV4.html">Blog</a>
-      <a href="/templates/ContactGV5.html">Contact</a>
+      <a href="templates/MethodologyGV1.html">Methodology</a>
+      <a href="templates/DatasetGV2.html">Dataset</a>
+      <a href="templates/PublicationGV3.html">Publications</a>
+      <a href="templates/BlogGV4.html">Blog</a>
+      <a href="templates/ContactGV5.html">Contact</a>
     </div>
   </nav>
 
@@ -112,7 +112,7 @@
 
     <!-- Step 1 -->
     <div class="step" data-aos="fade-right">
-      <img src="/assets/GV0/Satellite Image Acquisition.jpg" alt="Data Collection">
+      <img src="assets/GV0/Satellite Image Acquisition.jpg" alt="Data Collection">
       <div class="step-content">
         <h3>1. Satellite Image Acquisition</h3>
         <p>We collect high-resolution satellite imagery from public and commercial sources such as Sentinel-2, Landsat, and SpaceNet datasets. Multispectral images are prioritized to allow for accurate classification of land cover features.</p>
@@ -121,7 +121,7 @@
 
     <!-- Step 2 -->
     <div class="step" data-aos="fade-left">
-      <img src="/assets/GV0/Preprocessing.jpg" alt="Preprocessing">
+      <img src="assets/GV0/Preprocessing.jpg" alt="Preprocessing">
       <div class="step-content">
         <h3>2. Preprocessing</h3>
         <p>The raw satellite data undergoes preprocessing which includes radiometric correction, cloud masking, geometric alignment, and resizing. This ensures consistency across temporal data for accurate model training.</p>
@@ -131,7 +131,7 @@
 
     <!-- Step 3 -->
     <div class="step" data-aos="fade-right">
-      <img src="/assets/GV0/Data Augmentation.jpg" alt="Augmentation">
+      <img src="assets/GV0/Data Augmentation.jpg" alt="Augmentation">
       <div class="step-content">
         <h3>3. Data Augmentation</h3>
         <p>To address class imbalance and enrich the dataset, we apply augmentation techniques like rotation, flipping, brightness changes, and simulated terrain noise. This step significantly boosts model generalization.</p>
@@ -140,7 +140,7 @@
 
     <!-- Step 4 -->
     <div class="step" data-aos="fade-left">
-      <img src="/assets/GV0/U-Net-model.jpg" alt="Model Training">
+      <img src="assets/GV0/U-Net-model.jpg" alt="Model Training">
       <div class="step-content">
         <h3>4. Deep Learning-Based Feature Extraction</h3>
         <p>We use U-Net as the base architecture for semantic segmentation. To enhance performance on limited or domain-shifted data, we use CycleGANs for synthetic image generation that better represent real-world variability.</p>
@@ -150,7 +150,7 @@
 
     <!-- Step 5 -->
     <div class="step" data-aos="fade-right">
-      <img src="/assets/GV0/Evaluation and Post-Processing.jpg" alt="Evaluation">
+      <img src="assets/GV0/Evaluation and Post-Processing.jpg" alt="Evaluation">
       <div class="step-content">
         <h3>5. Evaluation and Post-Processing</h3>
         <p>Model outputs are evaluated using metrics like Mean Intersection over Union (mIoU), precision, and recall. Post-processing includes morphological operations to reduce noise and improve region consistency.</p>
@@ -160,7 +160,7 @@
 
     <!-- Step 6 -->
     <div class="step" data-aos="fade-left">
-      <img src="/assets/GV0/Visualization & Export.jpg" alt="Visualization">
+      <img src="assets/GV0/Visualization & Export.jpg" alt="Visualization">
       <div class="step-content">
         <h3>6. Visualization & Export</h3>
         <p>The extracted features are visualized over satellite imagery using transparent overlays. Final outputs are exported in formats compatible with GIS tools (GeoTIFF, SHP), and also rendered in interactive web dashboards for stakeholder access.</p>
